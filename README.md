@@ -12,6 +12,7 @@ REST是Transfer（表现层状态转移）的缩写，它是由罗伊·菲尔丁
 - HTTP动词
 
   与REST API呼应，将增(update)删(delete)改(edit)查(view)的操作映射到HTTP中已实现的GET、POST、PUT、DELETE方法中。
+  
 |动词|描述|
 |:-:|:-:|
 |GET|用于检索资源，对应查|
@@ -21,6 +22,7 @@ REST是Transfer（表现层状态转移）的缩写，它是由罗伊·菲尔丁
 
 
 - 响应状态码（详细内容见[HTTP Status Code](https://www.w3.org/Protocols/HTTP/HTRESP.html)）
+
 |状态码|状态|
 |-|-|
 |2XX|表示请求成功|
