@@ -31,15 +31,15 @@ REST是Transfer（表现层状态转移）的缩写，它是由罗伊·菲尔丁
 
 - 访问根目录以获得所有API使用方法
 	```shell
-	curl https://api.blogWorld.com
+	curl -i https://api.blogWorld.com
 	```
 
 ### 三、登录操作（认证方式）
 - 基本方式
     - 用户在参数中输入名称，但不输入密码。回车后终端再次让用户输入密码，此时密码不回显
-        `curl -u username https://api.blogWorld.com`
+        `curl -i https://api.blogWorld.com  -u username  `
     - 用户同时输入用户名和密码
-    	`curl -u username:password https://api.blogWorld.com`
+    	`curl -i https://api.blogWorld.com -u username:password `
 - 登录成功（返回202 Accepted）
 ```shell
 curl -i https://api.blogWorld.com -u valid_name:valid_password
@@ -71,7 +71,7 @@ HTTP / 1.1 403 Forbidden
 ### 四、GET请求获得博客内容
 
 - 摘要表示：`GET /user/articles/article1/repo`
-- 指定页面表示： `GET user/articles/article1?page=2&per_page=100`
+- 指定页面表示： `GET /user/articles/article1?page=2&per_page=100`
 - 详细表示：`GET /user/articles/article1/detail`
 - 若上述请求成功则会产生并返回一个资源，包含博客的基本内容
 ```shell
@@ -80,7 +80,7 @@ HTTP / 1.1 200 OK
 	"username":valid_username
 	"total_count":20
 	"articles":[
-		"id":02
+		"id":"02"
 		"headline":"title"
 		"author":"author's name"
 		"url":"url"
@@ -93,8 +93,62 @@ HTTP / 1.1 200 OK
 }
 ```
 ### 五、POST请求创建新博客
+- 需要提供文章基本信息的json数据
+- 请求为：`POST /user/articles/article1/publish`
+- 具体命令为
+```shell
+curl -i https://api.blogWorld.com/user/articles/acticle1/publish -d "{"id: "02","headline":"title"...}"
+```
+- 创建成功返回201表示资源成功创建
+```shell
+HTTP / 1.1 201 Create{
+	"username":valid_username
+	"total_count":20
+	"articles":[
+		"id":"02"
+		"headline":"title"
+		"author":"author's name"
+		"url":"url"
+		"private":false
+		"description":"detail.."
+		"content":"..."
+		"encoding":"UTF-8"
+        ...
+	]
+	"create_time":2019-11-22/12:00"
+	"documentation_url":https://aip.blogWorld.com/user/articles/article1"
+}
+```
+- 若发送无效的JSON将导致`400 Bad Request`
+```shell
+HTTP/1.1 400 Bad Request
+Content-Length: 35
+{
+	"message":"Problems parsing JSON"
+}
+```
 ### 六、PUT请求更新博客内容
+
+- 形式与POST相似：`PUT /user/articles/article1/publish`
+- 更新成功则返回状态码`200 OK`，表示文章被成功更新
+```shell
+HTTP / 1.1 200 OK
+{
+	"message":"articles update successed"
+	"user":valid_name
+}
+```
+- 若所更新的博客不存在则返回`400 Bad Request`
+```shell
+HTTP/1.1 400 Bad Request
+Content-Length: 35
+{
+	"message":"Article does not exist"
+}
+```
 ### 七、DELETE删除博客
+
+
 
 ### 参考资料
 - [Github API v3 overview](https://developer.github.com/v3/)
