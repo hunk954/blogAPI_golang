@@ -13,7 +13,7 @@ REST是Transfer（表现层状态转移）的缩写，它是由罗伊·菲尔丁
 
   与REST API呼应，将增(update)删(delete)改(edit)查(view)的操作映射到HTTP中已实现的GET、POST、PUT、DELETE方法中。
 |动词|描述|
-|-|-|
+|:-:|:-:|
 |GET|用于检索资源，对应查|
 |POST|用于创建资源，对应增|
 |PUT|用于替换资源或集合。对于`PUT`没有`body`属性的请求，需确保`Content-Length`标头设置为零，对应改|
