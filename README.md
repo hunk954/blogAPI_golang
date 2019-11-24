@@ -148,7 +148,20 @@ Content-Length: 35
 ```
 ### 七、DELETE删除博客
 
-
-
-### 参考资料
-- [Github API v3 overview](https://developer.github.com/v3/)
+- 请求：`DELETE /user/articles/article1`
+- 若删除成功则返回状态码`200 OK`
+```
+HTTP / 1.1 200 OK
+{
+	"message":"articles delete successed"
+	"user":valid_name
+}
+```
+- 若对应博客不存在则返回`400 Bad Request`
+```shell
+HTTP/1.1 400 Bad Request
+Content-Length: 35
+{
+	"message":"Article does not exist"
+}
+```
