@@ -60,7 +60,7 @@ HTTP / 1.1 401 Unauthorized
 - 若在短时间内检测到多个具有无效凭据的请求后，API会临时拒绝该用户的所有身份验证尝试（包括具有有效凭据的请求）：`403 Forbidden`
 ```shell
 curl -i https://api.blogWorld.com -u valid_username:valid_password
-Http / 1.1 403 Forbidden
+HTTP / 1.1 403 Forbidden
 {
 	"message":"Frequent login requests"
 	"documentation_url":"https://api.blogWorld.com"
@@ -68,10 +68,31 @@ Http / 1.1 403 Forbidden
 ```
 ### 四、GET请求获得博客内容
 
-- 摘要表示：`GET /user/article1/repo`
-- 指定页面表示： `curl https://api.blogWorld.com/user/article1?page=2&per_page=100`
-- 详细表示：`GET /user/article1/detail`
+- 摘要表示：`GET /user/articles/article1/repo`
+- 指定页面表示： `GET user/articles/article1?page=2&per_page=100`
+- 详细表示：`GET /user/articles/article1/detail`
+- 若上述请求成功则会产生并返回一个资源，包含博客的基本内容
+```shell
+HTTP / 1.1 200 OK
+{
+	"username":valid_username
+	"total_count":20
+	"articles":[
+		"id":02
+		"headline":"title"
+		"author":"author's name"
+		"url":"url"
+		"private":false
+		"description":"detail.."
+		"content":"..."
+		"encoding":"UTF-8"
+        ...
+	]
+}
+```
+### 五、POST请求创建新博客
+### 六、PUT请求更新博客内容
+### 七、DELETE删除博客
 
 ### 参考资料
 - [Github API v3 overview](https://developer.github.com/v3/)
-
